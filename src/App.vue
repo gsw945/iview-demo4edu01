@@ -74,6 +74,18 @@
       margin-left: 15%;
     }
   }
+  .data-list li {
+    list-style: none;
+  }
+  /* loading */
+  .spin-icon-loading{
+    animation: ani-demo-spin 0.7s linear infinite;
+  }
+  @keyframes ani-demo-spin {
+    from { transform: rotate(0deg);}
+    50%  { transform: rotate(180deg);}
+    to   { transform: rotate(360deg);}
+  }
 </style>
 
 <template>
@@ -91,7 +103,22 @@
             <Input size="large" class="search" search enter-button placeholder="搜索关键词..." />
             <!-- https://www.iviewui.com/components/tabs -->
             <Tabs class="tabs" :animated="true">
-              <TabPane label="macOS" icon="logo-apple">标签一的内容</TabPane>
+              <TabPane label="macOS" icon="logo-apple">
+                <!-- 第一个标签的数据列表 -->
+                <ul class="data-list">
+                  <li v-for="(item, index) in items">
+                    <div slot="content">
+                      <Tag type="border" color="primary">{{ index + 1 }}</Tag>
+                      <Tag color="primary">{{ item.name }}</Tag>
+                      <Tag color="orange">{{ item.age }}</Tag>
+                    </div>
+                  </li>
+                </ul>
+                <Spin size="large" fix v-if="spinShow">
+                  <Icon type="ios-loading" size=18 class="spin-icon-loading"></Icon>
+                  <div>加载中...</div>
+                </Spin>
+              </TabPane>
               <TabPane label="Windows" icon="logo-windows">标签二的内容</TabPane>
               <TabPane label="Linux" icon="logo-tux">标签三的内容</TabPane>
               <!--<TabPane v-for="tab in tabs" :key="tab" :label="'标签' + tab">标签{{ tab }}</TabPane>-->
@@ -120,7 +147,22 @@ export default {
       headerStyle: {
         height: 'auto'
       },
-      tabs: 2
+      tabs: 2,
+      items: [
+        {
+          'name': '张三',
+          'age': 20
+        },
+        {
+          'name': '李四',
+          'age': 24
+        },
+        {
+          'name': '王五',
+          'age': 15
+        }
+      ],
+      spinShow: true
     }
   },
   // 页面元素挂载
@@ -157,10 +199,12 @@ export default {
       this.getData()
     },
     getData() {
+      // ajax 请求示例
       let ajaxUrl = "https://httpbin.org/get"
       axios.get(ajaxUrl)
         .then((result) => {
           console.log(result)
+          this.spinShow = false
         })
     }
   }

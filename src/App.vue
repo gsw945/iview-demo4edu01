@@ -108,6 +108,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   // 应用名
   name: 'app',
@@ -125,7 +127,7 @@ export default {
   mounted() {
     // this.headerHeight = window.innerHeight - this.$refs.footer.$el.offsetHeight
     // 图片
-    var img = this.$refs.header.$el.querySelector('img')
+    let img = this.$refs.header.$el.querySelector('img');
     // 图片加载完成事件
     img.onload = () => {
       this.resizeHeader(img, this.headerStyle)
@@ -139,19 +141,27 @@ export default {
   methods: {
     resizeHeader: (img,headerStyle) => {
       // 图片宽高比
-      var hwRate = img.height / img.width
+      let hwRate = img.height / img.width;
       if(hwRate > 1) {
         hwRate = 1
       }
       // 图片显示宽度
-      var imgW = img.offsetWidth
+      let imgW = img.offsetWidth;
       // 图片显示需要的高度
-      var imgH = imgW * hwRate
+      let imgH = imgW * hwRate;
       // header的高度
       headerStyle.height = ((height) => `${height}px`)(imgH)
     },
     handleTabsAdd () {
-      this.tabs ++;
+      this.tabs ++
+      this.getData()
+    },
+    getData() {
+      let ajaxUrl = "https://httpbin.org/get"
+      axios.get(ajaxUrl)
+        .then((result) => {
+          console.log(result)
+        })
     }
   }
   // 注:

@@ -43,7 +43,7 @@
   /* search */
   .search {
     width: 80%;
-    margin: auto 10%;
+    margin: 0.7em 10% 1.8em 10%;
   }
 
   /* 标签页 */
@@ -77,7 +77,8 @@
 </style>
 
 <template>
-  <div id="app" class="layout">
+  <!-- v-title 见 main.js 中 title 设置 -->
+  <div v-title="'职搜-ZhiSou'" id="app" class="layout">
     <div class="layout-con">
       <div class="layout-single">
         <!-- https://www.iviewui.com/components/layout -->

@@ -1,6 +1,12 @@
 {
   "rules": {
     "no-console": 0
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
   }
 }
 // no-console:
